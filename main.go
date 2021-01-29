@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"os"
-	"os/exec"
 	"strings"
 
 	"github.com/clovis-shell/commands"
@@ -39,9 +38,7 @@ func execCommand(commandString string) {
 			commands.Ls(os.Args[1])
 		}
 	case "clear":
-		c := exec.Command("cmd", "/c", "cls")
-		c.Stdout = os.Stdout
-		c.Run()
+		commands.Clear()
 	case "exit":
 		os.Exit(0)
 	}
