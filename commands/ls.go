@@ -9,11 +9,12 @@ import (
 )
 
 //Ls function list the contents of a direcory
-func Ls(input string) {
+func Ls(input []string) {
 	var files []os.FileInfo
 	var err error
-	if input != "" {
-		files, err = ioutil.ReadDir(input)
+
+	if len(input) > 1 {
+		files, err = ioutil.ReadDir(input[1])
 
 	} else {
 		files, err = ioutil.ReadDir("./")

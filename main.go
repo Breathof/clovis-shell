@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"os"
+	"os/exec"
 	"strings"
 
 	"github.com/clovis-shell/commands"
@@ -30,16 +31,25 @@ func inputReader() {
 
 func execCommand(commandString string) {
 
-	switch commandString {
+	command := strings.Split(commandString, " ")
+	args := command[1:]
+	switch command[0] {
 	case "ls":
-		if len(os.Args) < 2 {
-			commands.Ls("./")
-		} else {
-			commands.Ls(os.Args[1])
-		}
+		commands.Ls(command)
 	case "clear":
 		commands.Clear()
+	case "cd":
+		commands.Cd(command)
 	case "exit":
 		os.Exit(0)
+	case "pwd":
+		commands.Pwd()
+	case "":
+	default:
+		cmd := exec.Command(command[0], args...)
+		common.AssignStd(cmd)
+		err := cmd.Run()
+		common.HandleError(err)
 	}
+
 }

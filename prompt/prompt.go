@@ -16,7 +16,7 @@ func GetPrompt() string {
 	dir, err := os.Getwd()
 
 	pathSlice := strings.Split(dir, string(os.PathSeparator))
-	path := pathSlice[len(pathSlice)-2]
+	path := strings.Join(pathSlice[len(pathSlice)-2:], string(os.PathSeparator))
 	prompt = "(" + user.Username + ") " + path + "$ "
 
 	return prompt
